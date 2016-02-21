@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FeedThumbnailCell">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tH7-B6-HFl">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <color key="backgroundColor" red="0.79864065226876091" green="0.79864065226876091" blue="0.79864065226876091" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="tH7-B6-HFl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0Ba-4a-fY7"/>
+                <constraint firstAttribute="trailing" secondItem="tH7-B6-HFl" secondAttribute="trailing" id="6V5-dY-1Pq"/>
+                <constraint firstAttribute="bottom" secondItem="tH7-B6-HFl" secondAttribute="bottom" id="f2w-C7-TcN"/>
+                <constraint firstItem="tH7-B6-HFl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="wme-Vo-72D"/>
+            </constraints>
+            <size key="customSize" width="100" height="100"/>
+            <connections>
+                <outlet property="thumbnail" destination="tH7-B6-HFl" id="dAl-WO-EI4"/>
+            </connections>
+            <point key="canvasLocation" x="299" y="122"/>
+        </collectionViewCell>
+    </objects>
+</document>

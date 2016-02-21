@@ -1,0 +1,24 @@
+//
+//  SharkFeed-Prefix.pch
+//  SharkFeed
+//
+//  Created by Avigit Saha on 2/17/16.
+//  Copyright © 2016 Avigit Saha. All rights reserved.
+//
+
+#ifndef SharkFeed_Prefix_pch
+#define SharkFeed_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <UIKit/UIKit.h>
+#import "NSObject+JSON.h"
+
+#if DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLog(...)
+#endif
+
+#endif /* SharkFeed_Prefix_pch */
