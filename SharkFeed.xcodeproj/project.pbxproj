@@ -22,6 +22,7 @@
 		2785FD951C76CB5E0049C749 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2785FD941C76CB5E0049C749 /* ImageManager.m */; };
 		2785FD971C7709E70049C749 /* RefreshControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2785FD961C7709E70049C749 /* RefreshControlView.xib */; };
 		2785FDC41C7837750049C749 /* RefreshControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2785FDC31C7837750049C749 /* RefreshControlView.m */; };
+		27D6ABBC1C79582F00C8C8FF /* LightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */; };
 		27E93ABB1C76BA4900677EE5 /* FeedThumbnailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E93AB91C76BA4900677EE5 /* FeedThumbnailCell.m */; };
 		27E93ABC1C76BA4900677EE5 /* FeedThumbnailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27E93ABA1C76BA4900677EE5 /* FeedThumbnailCell.xib */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,8 @@
 		2785FD961C7709E70049C749 /* RefreshControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshControlView.xib; sourceTree = "<group>"; };
 		2785FDC21C7837750049C749 /* RefreshControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshControlView.h; sourceTree = "<group>"; };
 		2785FDC31C7837750049C749 /* RefreshControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshControlView.m; sourceTree = "<group>"; };
+		27D6ABBA1C79582F00C8C8FF /* LightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightboxViewController.h; sourceTree = "<group>"; };
+		27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightboxViewController.m; sourceTree = "<group>"; };
 		27E93AB81C76BA4900677EE5 /* FeedThumbnailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedThumbnailCell.h; sourceTree = "<group>"; };
 		27E93AB91C76BA4900677EE5 /* FeedThumbnailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedThumbnailCell.m; sourceTree = "<group>"; };
 		27E93ABA1C76BA4900677EE5 /* FeedThumbnailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedThumbnailCell.xib; sourceTree = "<group>"; };
@@ -177,6 +180,8 @@
 				270AC4DB1C758F3800589908 /* ConnectionManager.m */,
 				2785FD931C76CB5E0049C749 /* ImageManager.h */,
 				2785FD941C76CB5E0049C749 /* ImageManager.m */,
+				27D6ABBA1C79582F00C8C8FF /* LightboxViewController.h */,
+				27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				270AC4BB1C745A0A00589908 /* ThumbnailsViewController.m in Sources */,
 				270AC4DC1C758F3800589908 /* ConnectionManager.m in Sources */,
 				27E93ABB1C76BA4900677EE5 /* FeedThumbnailCell.m in Sources */,
+				27D6ABBC1C79582F00C8C8FF /* LightboxViewController.m in Sources */,
 				270AC4871C74425D00589908 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

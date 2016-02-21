@@ -1,0 +1,257 @@
+//
+//  ViewController.m
+//  SharkFeed
+//
+//  Created by Avigit Saha on 2/16/16.
+//  Copyright © 2016 Avigit Saha. All rights reserved.
+//
+
+#import "ThumbnailsViewController.h"
+#import "ConnectionManager.h"
+#import "Result.h"
+#import "Photo.h"
+#import "FeedThumbnailCell.h"
+#import "ImageManager.h"
+#import "RefreshControlView.h"
+#import "LightboxViewController.h"
+
+@interface ThumbnailsViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) NSMutableArray            *searchResult;
+@property (nonatomic, strong) NSMutableDictionary       *inProgress;
+@property (nonatomic, strong) Result                    *result;
+@property (nonatomic, strong) UIRefreshControl          *refreshControl;
+@property (nonatomic, strong) RefreshControlView        *refreshControlView;
+@property (nonatomic, strong) NSLayoutConstraint        *refreshControlViewHeight;
+@property (nonatomic, strong) NSLayoutConstraint        *refreshControlViewTop;
+
+@end
+
+@implementation ThumbnailsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Register collection view cell
+    [_collectionView registerNib:[UINib nibWithNibName:@"FeedThumbnailCell" bundle:nil] forCellWithReuseIdentifier:@"FeedThumbnailCellId"];
+    
+    // add custom view to refresh control
+    self.refreshControlView = [[[NSBundle mainBundle] loadNibNamed:@"RefreshControlView" owner:self options:nil] objectAtIndex:0];
+    
+    [self.collectionView addSubview:self.refreshControlView];
+    [self.refreshControlView addTarget:self action:@selector(startRefresh:) forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControlView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    self.refreshControlViewTop = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.collectionView
+                                                              attribute:NSLayoutAttributeTopMargin
+                                                             multiplier:1.0
+                                                               constant:0.0];
+    
+    NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                            attribute:NSLayoutAttributeLeft
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self.collectionView
+                                                            attribute:NSLayoutAttributeLeft
+                                                           multiplier:1.0
+                                                             constant:0.0];
+    
+    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.collectionView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                            multiplier:1.0
+                                                              constant:0.0];
+    self.refreshControlViewHeight = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                                 attribute:NSLayoutAttributeHeight
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:1.0
+                                                                  constant:0.0];
+    
+    [self.collectionView addConstraints:@[self.refreshControlViewTop, left, width, self.refreshControlViewHeight]];
+    [self.collectionView setNeedsLayout];
+    [self.collectionView layoutIfNeeded];
+    
+    self.searchResult = [[NSMutableArray alloc] init];
+    [self loadImages];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+    DLog(@"MEMORY WARNING!!!!!!!!!");
+}
+
+- (void)startRefresh:(id)sender
+{
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:5.0f];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            //Run UI Updates
+            [self.refreshControlView endRefreshing];
+        });
+    });
+}
+
+- (void)loadImages
+{
+    NSInteger page = (self.result) ? ++self.result.page : 1;
+    
+    NSString *endpoint = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=949e98778755d1982f537d56236bbb42&tags=shark&format=json&nojsoncallback=1&page=%ld&extras=url_t,url_c,url_l,url_o", (long)page];
+    
+    [ConnectionManager dataWithEndpoint:endpoint completion:^(NSDictionary *response, NSError *error) {
+        self.result = [[Result alloc] initWithJSONDictionary:response[@"photos"]];
+        [self.searchResult addObjectsFromArray:self.result.photo];
+        [self.collectionView reloadData];
+    }];
+}
+
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return (self.searchResult) ? self.searchResult.count : 0;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    FeedThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedThumbnailCellId" forIndexPath:indexPath];
+    Photo *photo = self.searchResult[indexPath.row];
+    if (photo.thumbnailImage) {
+        cell.thumbnail.image = photo.thumbnailImage;
+    } else {
+        if (self.collectionView.dragging == NO && self.collectionView.decelerating == NO) {
+            [self startDownloadImage:photo forIndexPath:indexPath];
+        }
+        
+        cell.thumbnail.image = nil;
+    }
+    
+    return cell;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"LightBoxSegue" sender:indexPath];
+    return YES;
+}
+
+#pragma mark <UICollectionViewDelegate>
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    screenSize.width = (screenSize.width - 20 - 4) / 3;
+    return CGSizeMake(floor(screenSize.width), floor(screenSize.width));
+}
+
+- (void)loadOnScreenCellImages
+{
+    if (self.searchResult.count > 0)
+    {
+        NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            Photo *photo = self.searchResult[indexPath.row];
+            
+            if (!photo.thumbnailImage)
+            {
+                [self startDownloadImage:photo forIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+- (void)startDownloadImage:(Photo*)photo forIndexPath:(NSIndexPath*)indexPath
+{
+    if (_inProgress[indexPath] == nil) {
+        [[ImageManager sharedManager] imageWithUrl:photo.url_t completion:^(UIImage *image) {
+            FeedThumbnailCell *cell = (FeedThumbnailCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
+            cell.thumbnail.image = image;
+            [_inProgress removeObjectForKey:indexPath];
+        }];
+        [_inProgress setObject:photo forKey:indexPath];
+    } else {
+        DLog(@"In Progress %@", photo.url_t);
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+    {
+        [self loadOnScreenCellImages];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadOnScreenCellImages];
+}
+
+- (BOOL)isVisibleIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
+    
+    return [visiblePaths containsObject:indexPath];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    DLog(@"Offset {%f,%f}", scrollView.contentOffset.x, scrollView.contentOffset.y);
+    DLog(@"Inset {%f}", self.topLayoutGuide.length);
+    DLog(@"Refresh Controller {%f|%f}", self.refreshControl.frame.size.height, self.refreshControlView.frame.size.height);
+    if (scrollView.contentOffset.y / scrollView.contentSize.height > 0.70) {
+        // load next page
+        [self loadImages];
+    }
+    
+//    CGFloat top = self.topLayoutGuide.length;
+    
+    if (scrollView.contentOffset.y < -64.0 && !self.refreshControlView.isRefreshing) {
+        self.refreshControlViewTop.constant = 64 - fabsf((float)scrollView.contentOffset.y);
+        self.refreshControlViewHeight.constant = fabsf((float)scrollView.contentOffset.y) - 64.0;
+        [self.collectionView layoutIfNeeded];
+    }
+    
+    if (scrollView.contentInset.top > 64.0 && !self.refreshControlView.isRefreshing) {
+        DLog(@"");
+        self.refreshControlViewTop.constant = 0.0;
+        self.refreshControlViewHeight.constant = 0.0;
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.collectionView layoutIfNeeded];
+            self.collectionView.contentInset = UIEdgeInsetsMake(64, self.collectionView.contentInset.left, self.collectionView.contentInset.bottom, self.collectionView.contentInset.right);
+        } completion:nil];
+        
+        
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"LightBoxSegue"]) {
+        LightboxViewController *viewController = (LightboxViewController*)segue.destinationViewController;
+        NSIndexPath *indexPath = (NSIndexPath*)sender;
+        viewController.photo = self.searchResult[indexPath.row];
+    }
+}
+
+@end

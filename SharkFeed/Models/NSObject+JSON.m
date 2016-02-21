@@ -55,7 +55,7 @@
     
     for (NSString *key in [dict allKeys]) {
         
-        NSString *propertyName = [mapDictionary objectForKey:[[[key substringToIndex:1] lowercaseString] stringByAppendingString:[key substringFromIndex:1]]];
+        NSString *propertyName = mapDictionary[([key isEqualToString:@"id"]) ? @"_id" : key];
         
         if (!propertyName) {
             continue;
