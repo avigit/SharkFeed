@@ -10,10 +10,13 @@
 #import "ImageManager.h"
 #import "ConnectionManager.h"
 
-@interface LightboxViewController ()
+@interface LightboxViewController ()<UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *originalImageView;
 @property (strong, nonatomic) IBOutlet UILabel *infoLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *originalImageViewWidth;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *originalImageViewHeight;
 
 @end
 
@@ -21,7 +24,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // Set zoom scales
+    
+    self.scrollView.minimumZoomScale = 1.0;
+    self.scrollView.maximumZoomScale = 4.0;
+    
+    self.originalImageViewWidth.constant = [UIScreen mainScreen].bounds.size.width;
+    self.originalImageViewHeight.constant = [UIScreen mainScreen].bounds.size.height;
+    [self.view layoutIfNeeded];
     
     [self setInfoLabelText];
     
@@ -80,6 +91,8 @@
     return endpoint;
 }
 
+#pragma mark - Button actions
+
 - (IBAction)download:(id)sender
 {
     [[ImageManager sharedManager] saveImageToPhotosWithUrl:[self endpointForHighQualityPhoto] completion:^(BOOL success) {
@@ -101,6 +114,24 @@
 - (IBAction)close:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Scroll view delegates
+
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.originalImageView;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    UIView *contentView = [scrollView.subviews objectAtIndex:0];
+    
+    CGFloat offsetX = MAX((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0);
+    CGFloat offsetY = MAX((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0);
+    
+    contentView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
+                                 scrollView.contentSize.height * 0.5 + offsetY);
 }
 
 @end
