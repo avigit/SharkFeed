@@ -6,9 +6,9 @@
 //  Copyright © 2016 Avigit Saha. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SFViewController.h"
 
-@interface ThumbnailsViewController : UIViewController
+@interface ThumbnailsViewController : SFViewController
 
 
 @end

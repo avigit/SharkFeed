@@ -8,11 +8,9 @@
 
 #import "ImageManager.h"
 
-#define kImageCacheKey         @"ImageCache"
-
 @interface ImageManager()
 
-@property (nonatomic, strong) NSMutableDictionary *imageCache;
+@property (nonatomic, strong) NSCache *imageCache;
 @property (nonatomic, strong) NSOperationQueue *queue;
 @property (nonatomic, strong) NSMutableDictionary *inprogess;
 
@@ -23,14 +21,10 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        [self initializeImageCache];
+        _imageCache = [[NSCache alloc] init];
         _inprogess = [[NSMutableDictionary alloc] init];
         _queue = [[NSOperationQueue alloc] init];
         _queue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     
     return self;
@@ -54,21 +48,6 @@
 
 #pragma mark - Instance Methods
 
-- (void)willEnterForeground
-{
-    [self initializeImageCache];
-}
-
-- (void)didEnterBackground
-{
-    [self saveImageCache];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    
-}
-
 - (UIImage*)imageWithUrl:(NSString *)url
 {
     return [UIImage imageWithData:[self.imageCache objectForKey:url]];
@@ -85,6 +64,7 @@
         }];
         return;
     }
+    
     NSOperation *download = [NSBlockOperation blockOperationWithBlock:^{
         
         UIImage *image = [self imageWithUrl:url];
@@ -97,7 +77,8 @@
                 }
             }];
         } else {
-            DLog(@"Downloading Image...");
+            // Download Image
+            
             NSURL *imageUrl = [NSURL URLWithString:url];
             NSData *data = [NSData dataWithContentsOfURL:imageUrl];
             UIImage *image = [UIImage imageWithData:data];
@@ -135,27 +116,10 @@
         
         if (completion) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                completion(YES);
+                completion(success);
             }];
         }
     }];
-}
-
-- (void)saveImageCache
-{
-    [[NSUserDefaults standardUserDefaults] setObject:_imageCache forKey:kImageCacheKey];
-}
-
-- (void)initializeImageCache
-{
-    
-    if (self.imageCache == nil) {
-        NSDictionary *images = [[NSUserDefaults standardUserDefaults] objectForKey:kImageCacheKey];
-        self.imageCache = [NSMutableDictionary dictionaryWithDictionary:images];
-        if (self.imageCache == nil) {
-            self.imageCache = [[NSMutableDictionary alloc] init];
-        }
-    }
 }
 
 @end

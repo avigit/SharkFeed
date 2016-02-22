@@ -24,6 +24,9 @@
 		27D6ABBC1C79582F00C8C8FF /* LightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */; };
 		27D6ABC01C7A979F00C8C8FF /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBF1C7A979F00C8C8FF /* NSObject+JSON.m */; };
 		27D6ABC31C7A97FC00C8C8FF /* UIImage+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABC21C7A97FC00C8C8FF /* UIImage+Extended.m */; };
+		27D6ABC61C7AD59500C8C8FF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABC51C7AD59500C8C8FF /* Reachability.m */; };
+		27D6ABC91C7AD98700C8C8FF /* SFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABC81C7AD98700C8C8FF /* SFViewController.m */; };
+		27D6ABCC1C7AE2AC00C8C8FF /* SFPhotoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABCB1C7AE2AC00C8C8FF /* SFPhotoInfo.m */; };
 		27E93ABB1C76BA4900677EE5 /* FeedThumbnailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E93AB91C76BA4900677EE5 /* FeedThumbnailCell.m */; };
 		27E93ABC1C76BA4900677EE5 /* FeedThumbnailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27E93ABA1C76BA4900677EE5 /* FeedThumbnailCell.xib */; };
 /* End PBXBuildFile section */
@@ -80,6 +83,12 @@
 		27D6ABBF1C7A979F00C8C8FF /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
 		27D6ABC11C7A97FC00C8C8FF /* UIImage+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extended.h"; sourceTree = "<group>"; };
 		27D6ABC21C7A97FC00C8C8FF /* UIImage+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extended.m"; sourceTree = "<group>"; };
+		27D6ABC41C7AD59500C8C8FF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		27D6ABC51C7AD59500C8C8FF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		27D6ABC71C7AD98700C8C8FF /* SFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFViewController.h; sourceTree = "<group>"; };
+		27D6ABC81C7AD98700C8C8FF /* SFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFViewController.m; sourceTree = "<group>"; };
+		27D6ABCA1C7AE2AC00C8C8FF /* SFPhotoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoInfo.h; sourceTree = "<group>"; };
+		27D6ABCB1C7AE2AC00C8C8FF /* SFPhotoInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoInfo.m; sourceTree = "<group>"; };
 		27E93AB81C76BA4900677EE5 /* FeedThumbnailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedThumbnailCell.h; sourceTree = "<group>"; };
 		27E93AB91C76BA4900677EE5 /* FeedThumbnailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedThumbnailCell.m; sourceTree = "<group>"; };
 		27E93ABA1C76BA4900677EE5 /* FeedThumbnailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedThumbnailCell.xib; sourceTree = "<group>"; };
@@ -186,6 +195,8 @@
 				2785FD941C76CB5E0049C749 /* ImageManager.m */,
 				27D6ABBA1C79582F00C8C8FF /* LightboxViewController.h */,
 				27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */,
+				27D6ABC71C7AD98700C8C8FF /* SFViewController.h */,
+				27D6ABC81C7AD98700C8C8FF /* SFViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -193,10 +204,14 @@
 		270AC4BC1C745A3500589908 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				27D6ABC41C7AD59500C8C8FF /* Reachability.h */,
+				27D6ABC51C7AD59500C8C8FF /* Reachability.m */,
 				270AC4BD1C745A5D00589908 /* Photo.h */,
 				270AC4BE1C745A5D00589908 /* Photo.m */,
 				270AC4C01C745A7000589908 /* Result.h */,
 				270AC4C11C745A7000589908 /* Result.m */,
+				27D6ABCA1C7AE2AC00C8C8FF /* SFPhotoInfo.h */,
+				27D6ABCB1C7AE2AC00C8C8FF /* SFPhotoInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -358,7 +373,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2785FDC41C7837750049C749 /* RefreshControlView.m in Sources */,
+				27D6ABCC1C7AE2AC00C8C8FF /* SFPhotoInfo.m in Sources */,
+				27D6ABC91C7AD98700C8C8FF /* SFViewController.m in Sources */,
 				270AC4BF1C745A5D00589908 /* Photo.m in Sources */,
+				27D6ABC61C7AD59500C8C8FF /* Reachability.m in Sources */,
 				270AC48A1C74425D00589908 /* AppDelegate.m in Sources */,
 				2785FD951C76CB5E0049C749 /* ImageManager.m in Sources */,
 				270AC4C21C745A7000589908 /* Result.m in Sources */,

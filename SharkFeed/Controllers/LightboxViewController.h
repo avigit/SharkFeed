@@ -6,10 +6,10 @@
 //  Copyright © 2016 Avigit Saha. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SFViewController.h"
 #import "Photo.h"
 
-@interface LightboxViewController : UIViewController
+@interface LightboxViewController : SFViewController
 
 @property (nonatomic, strong) Photo *photo;
 

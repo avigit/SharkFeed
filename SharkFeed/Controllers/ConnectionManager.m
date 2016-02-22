@@ -14,7 +14,8 @@
 {
     NSURL *url = [NSURL URLWithString:endpoint];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        
+        NSDictionary *responseDict = (!error && data) ? [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error] : nil;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             completion(responseDict, error);
         }];

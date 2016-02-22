@@ -59,6 +59,9 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="cwF-g2-eng"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="O0a-PT-dDn">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -66,11 +69,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="tSY-db-NvF" secondAttribute="trailing" constant="-20" id="RKm-7X-l93"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tSY-db-NvF" secondAttribute="bottom" id="W3E-st-U5O"/>
                             <constraint firstItem="tSY-db-NvF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="nWM-Ed-WfH"/>
+                            <constraint firstItem="O0a-PT-dDn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qAi-vb-w0L"/>
+                            <constraint firstItem="O0a-PT-dDn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zAg-DB-5Pp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sM5-5U-XBi"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="O0a-PT-dDn" id="b4p-5i-N8c"/>
                         <outlet property="collectionView" destination="tSY-db-NvF" id="4SS-fE-TZv"/>
                         <segue destination="LwM-7i-GTJ" kind="presentation" identifier="LightBoxSegue" id="Fhm-dd-g4z"/>
                     </connections>

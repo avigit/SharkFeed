@@ -18,12 +18,14 @@
 @interface ThumbnailsViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSMutableArray            *searchResult;
 @property (nonatomic, strong) NSMutableDictionary       *inProgress;
 @property (nonatomic, strong) Result                    *result;
 @property (nonatomic, strong) RefreshControlView        *refreshControlView;
 @property (nonatomic, strong) NSLayoutConstraint        *refreshControlViewHeight;
 @property (nonatomic, strong) NSLayoutConstraint        *refreshControlViewTop;
+@property (nonatomic, assign) BOOL                      pageLoading;
 
 @end
 
@@ -109,7 +111,7 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    DLog(@"MEMORY WARNING!!!!!!!!!");
+    
 }
 
 - (void)startRefresh:(id)sender
@@ -120,22 +122,40 @@
 
 - (void)loadImages
 {
-    NSInteger page = (self.result) ? ++self.result.page : 1;
+    // We load next page after scrolle view scroll to a threshold value or more. After we start loading page, a user may still scroll and the y value of content offset will still be equal or more than the threshold. Therefore we load one page at a time to prevent multiple unnccessary page load.
+    if (self.pageLoading) {
+        return;
+    }
     
+    self.pageLoading = YES;
+    
+    NSInteger page = (self.result && self.result.page < self.result.pages) ? ++self.result.page : 1;
+    DLog(@"Loading page: %ld", (long)page);
     NSString *endpoint = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=949e98778755d1982f537d56236bbb42&tags=shark&format=json&nojsoncallback=1&page=%ld&extras=url_t,url_c,url_l,url_o", (long)page];
     
+    // Show activity if the page is empty
+    if (self.searchResult.count == 0) {
+        [self.activityIndicator startAnimating];
+    }
+    
     [ConnectionManager dataWithEndpoint:endpoint completion:^(NSDictionary *response, NSError *error) {
+        
         if (!self.result) {
             self.searchResult = [NSMutableArray new];
         }
         self.result = [[Result alloc] initWithJSONDictionary:response[@"photos"]];
         [self.searchResult addObjectsFromArray:self.result.photo];
+        
+        // update UI
+        [self.activityIndicator stopAnimating];
         [self.collectionView reloadData];
         
         // if pulled to refresh end refreshing
         if (self.refreshControlView.isRefreshing) {
             [self.refreshControlView endRefreshing];
         }
+        self.pageLoading = NO;
+        
         
     }];
 }

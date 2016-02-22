@@ -9,6 +9,7 @@
 #import "LightboxViewController.h"
 #import "ImageManager.h"
 #import "ConnectionManager.h"
+#import "SFPhotoInfo.h"
 
 @interface LightboxViewController ()<UIScrollViewDelegate>
 
@@ -68,8 +69,9 @@
         if (error) {
             // Log it or send a telemetry. We dont want to show user any error here
         } else {
-            NSDictionary *photoDict = response[@"photo"];
-            self.infoLabel.text = ((NSDictionary*)photoDict[@"description"])[@"_content"];
+            SFPhotoInfo *photoInfo = [[SFPhotoInfo alloc] initWithJSONDictionary:response[@"photo"]];
+            self.infoLabel.text = (photoInfo.desc) ? photoInfo.desc:photoInfo.title;
+            
         }
     }];
     

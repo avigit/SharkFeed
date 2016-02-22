@@ -61,15 +61,18 @@
             continue;
         }
         
+        objc_property_t property = class_getProperty([newObject class], [propertyName UTF8String]);
+        
         // If it's null, set to nil and continue
         if ([dict objectForKey:key] == [NSNull null]) {
-            [newObject setValue:nil forKey:propertyName];
+            if (![self isPrimitive:property]) {
+                [newObject setValue:nil forKey:propertyName];
+            }
             continue;
         }
         
         // If it's a Dictionary, make into object
         if ([[dict objectForKey:key] isKindOfClass:[NSDictionary class]]) {
-            //id newObjectProperty = [newObject valueForKey:propertyName];
             NSString *propertyType = [newObject classOfPropertyNamed:propertyName];
             id nestedObj = [NSObject objectOfClass:NSClassFromString(propertyType) fromJSON:[dict objectForKey:key]];
             [newObject setValue:nestedObj forKey:propertyName];
@@ -85,7 +88,6 @@
         
         // Add to property name, because it is a type already
         else {
-            objc_property_t property = class_getProperty([newObject class], [propertyName UTF8String]);
             
             if (property) {
                 NSString *classType = [newObject typeFromProperty:property];
@@ -348,6 +350,24 @@
     [formatter setDateFormat:DateFormat];
     [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:TimeZone]];
     return [formatter stringFromDate:date];
+}
+
++ (BOOL)isPrimitive:(objc_property_t)property
+{
+    NSString * typeString = [NSString stringWithUTF8String:property_getAttributes(property)];
+    NSArray * attributes = [typeString componentsSeparatedByString:@","];
+    NSString * typeAttribute = [attributes objectAtIndex:0];
+    NSString * propertyType = [typeAttribute substringFromIndex:1];
+    const char * rawPropertyType = [propertyType UTF8String];
+    
+    if (strcmp(rawPropertyType, @encode(float)) == 0 ||
+        strcmp(rawPropertyType, @encode(int)) == 0 ||
+        strcmp(rawPropertyType, @encode(NSInteger)) == 0 ||
+        strcmp(rawPropertyType, @encode(CGFloat)) == 0) {
+        //it's a primitive
+        return YES;
+    }
+    return NO;
 }
 
 @end

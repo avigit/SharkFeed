@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "Reachability.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) Reachability *reachability;
 
 @end
 
@@ -18,6 +21,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    // Start network reachability
+    self.reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
+    [self.reachability startNotifier];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStatusChanged:) name:kReachabilityChangedNotification object:nil];
     
     return YES;
 }
@@ -42,6 +50,19 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)networkStatusChanged:(NSNotification*)notification
+{
+    if (self.reachability.currentReachabilityStatus == NotReachable) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!!" message:@"Looks like you are not connected to the internet." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        // Action to open settings
+        [alert addAction:[UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }]];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 @end

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,25 +11,17 @@
             <rect key="frame" x="0.0" y="0.0" width="376" height="106.5"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucx-lM-PFz" userLabel="Center View">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucx-lM-PFz" userLabel="Center View">
                     <rect key="frame" x="65" y="0.0" width="247" height="106"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pull to refresh 1" translatesAutoresizingMaskIntoConstraints="NO" id="8Q0-Ih-Chj">
                             <rect key="frame" x="112" y="3" width="22" height="31"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="8Q0-Ih-Chj" secondAttribute="height" multiplier="22:31" id="J74-3r-Urj"/>
-                                <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="31" id="f1R-HG-8so"/>
-                            </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pull to refresh 2" translatesAutoresizingMaskIntoConstraints="NO" id="WAd-dQ-zfG">
-                            <rect key="frame" x="109" y="39" width="28" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="WAd-dQ-zfG" secondAttribute="height" multiplier="7:11" id="dDP-mL-MiD"/>
-                                <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="44" id="jsS-wr-31s"/>
-                            </constraints>
+                            <rect key="frame" x="109" y="40" width="28" height="44"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pull to refresh sharks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8T-gl-w82">
-                            <rect key="frame" x="59" y="87.5" width="129" height="15.5"/>
+                            <rect key="frame" x="59" y="88.5" width="129" height="14.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                             <color key="textColor" red="0.40684309554973819" green="0.40684309554973819" blue="0.40684309554973819" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -38,15 +29,14 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="f8T-gl-w82" firstAttribute="top" secondItem="WAd-dQ-zfG" secondAttribute="bottom" constant="5" id="2e4-H2-NtY"/>
-                        <constraint firstItem="8Q0-Ih-Chj" firstAttribute="top" secondItem="ucx-lM-PFz" secondAttribute="top" constant="3" id="2u0-hm-oqw"/>
-                        <constraint firstItem="8Q0-Ih-Chj" firstAttribute="centerX" secondItem="ucx-lM-PFz" secondAttribute="centerX" id="7ae-sq-vZy"/>
+                        <constraint firstItem="f8T-gl-w82" firstAttribute="top" secondItem="WAd-dQ-zfG" secondAttribute="bottom" constant="4.5" id="2au-2z-KTI"/>
+                        <constraint firstItem="WAd-dQ-zfG" firstAttribute="top" secondItem="8Q0-Ih-Chj" secondAttribute="bottom" constant="6" id="48a-Vi-FWG"/>
                         <constraint firstAttribute="bottom" secondItem="f8T-gl-w82" secondAttribute="bottom" constant="3" id="KQT-ih-E4Q"/>
+                        <constraint firstItem="8Q0-Ih-Chj" firstAttribute="centerX" secondItem="ucx-lM-PFz" secondAttribute="centerX" id="RQB-NI-Ik0"/>
                         <constraint firstAttribute="height" constant="106" id="Rdu-Qq-Vmz"/>
                         <constraint firstItem="f8T-gl-w82" firstAttribute="centerX" secondItem="ucx-lM-PFz" secondAttribute="centerX" id="TdY-fu-saA"/>
-                        <constraint firstItem="WAd-dQ-zfG" firstAttribute="top" secondItem="8Q0-Ih-Chj" secondAttribute="bottom" constant="5" id="dQu-Yr-pu2"/>
                         <constraint firstAttribute="width" constant="247" id="dR8-DY-JCm"/>
-                        <constraint firstItem="WAd-dQ-zfG" firstAttribute="centerX" secondItem="ucx-lM-PFz" secondAttribute="centerX" id="miS-SL-glf"/>
+                        <constraint firstItem="WAd-dQ-zfG" firstAttribute="centerX" secondItem="ucx-lM-PFz" secondAttribute="centerX" id="wfY-0T-agX"/>
                     </constraints>
                 </view>
             </subviews>
@@ -60,9 +50,7 @@
                 <outlet property="centerView" destination="ucx-lM-PFz" id="jEs-By-JvN"/>
                 <outlet property="centerViewHeight" destination="Rdu-Qq-Vmz" id="l9C-dK-JC8"/>
                 <outlet property="pullToRefresh1" destination="8Q0-Ih-Chj" id="nlI-Zc-Z4M"/>
-                <outlet property="pullToRefresh1Height" destination="f1R-HG-8so" id="GVa-PJ-U3o"/>
                 <outlet property="pullToRefresh2" destination="WAd-dQ-zfG" id="lOD-uC-ksT"/>
-                <outlet property="pullToRefresh2Height" destination="jsS-wr-31s" id="tLa-eg-8wn"/>
             </connections>
             <point key="canvasLocation" x="433" y="449.75"/>
         </view>

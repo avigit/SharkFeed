@@ -18,9 +18,7 @@
 @property (nonatomic, strong) IBOutlet UIView *centerView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *centerViewHeight;
 @property (strong, nonatomic) IBOutlet UIImageView *pullToRefresh1;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *pullToRefresh1Height;
 @property (strong, nonatomic) IBOutlet UIImageView *pullToRefresh2;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *pullToRefresh2Height;
 @property (weak, nonatomic) UICollectionView *superCV;
 
 @property (nonatomic, assign) BOOL isRefreshing;
@@ -30,30 +28,12 @@
 
 @implementation RefreshControlView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-//    self.centerViewHeight.constant = 10.0;
-//    self.pullToRefresh1.hidden = YES;
-//    self.pullToRefresh2.hidden = YES;
-//    [self updateViews];
-}
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    DLog(@"Frame changed: {%f,%f}", self.frame.size.width, self.frame.size.height);
+    
     self.centerViewHeight.constant = (self.frame.size.height > MAX_CENTERVIEW_HEIGHT) ? MAX_CENTERVIEW_HEIGHT : self.frame.size.height;
-    [self updateViews];
     [self beginRefreshingIfPossible];
 }
 
@@ -63,20 +43,6 @@
     
     DLog(@"Frame changed: {%f,%f}", frame.size.width, frame.size.height);
     self.centerViewHeight.constant = (frame.size.height > MAX_CENTERVIEW_HEIGHT) ? MAX_CENTERVIEW_HEIGHT : frame.size.height;
-    [self updateViews];
-}
-
-- (void)updateViews
-{
-    if (self.pullToRefresh1Height.constant > MIN_PULL_TO_REFRESH_HEIGHT*2) {
-        self.pullToRefresh1.hidden = NO;
-        self.pullToRefresh2.hidden = NO;
-    } else {
-        self.pullToRefresh1.hidden = YES;
-        self.pullToRefresh2.hidden = YES;
-    }
-    
-    [self layoutIfNeeded];
 }
 
 - (UICollectionView*)superCV
