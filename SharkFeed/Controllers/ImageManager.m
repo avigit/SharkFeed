@@ -7,6 +7,7 @@
 //
 
 #import "ImageManager.h"
+#import "AppDelegate.h"
 
 @interface ImageManager()
 
@@ -108,18 +109,27 @@
 - (void)saveImageToPhotosWithUrl:(NSString *)url completion:(void (^)(BOOL))completion
 {
     [self imageWithUrl:url completion:^(UIImage *image) {
-        BOOL success = NO;
         if (image) {
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-            success = YES;
+            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        } else {
+            if (completion) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    completion(NO);
+                }];
+            }
         }
         
-        if (completion) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                completion(success);
-            }];
-        }
     }];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if (error) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!!" message:@"Couldn't save the photo" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 @end
