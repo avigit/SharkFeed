@@ -124,6 +124,23 @@
     [self.queue addOperation:download];
 }
 
+- (void)saveImageToPhotosWithUrl:(NSString *)url completion:(void (^)(BOOL))completion
+{
+    [self imageWithUrl:url completion:^(UIImage *image) {
+        BOOL success = NO;
+        if (image) {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+            success = YES;
+        }
+        
+        if (completion) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                completion(YES);
+            }];
+        }
+    }];
+}
+
 - (void)saveImageCache
 {
     [[NSUserDefaults standardUserDefaults] setObject:_imageCache forKey:kImageCacheKey];

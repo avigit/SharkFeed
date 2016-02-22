@@ -82,27 +82,25 @@
 
 - (IBAction)download:(id)sender
 {
-    
+    [[ImageManager sharedManager] saveImageToPhotosWithUrl:[self endpointForHighQualityPhoto] completion:^(BOOL success) {
+        if (!success) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!!" message:@"Couldn't save the photo" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 - (IBAction)openInApp:(id)sender
 {
-    
+    NSString *endpoint = [NSString stringWithFormat:@"flickr://photos/%@/%@", self.photo.owner, self.photo._id];
+    NSURL *myURL = [NSURL URLWithString:endpoint];
+    [[UIApplication sharedApplication] openURL:myURL];
 }
 
 - (IBAction)close:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

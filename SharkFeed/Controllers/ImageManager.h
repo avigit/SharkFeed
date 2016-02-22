@@ -13,5 +13,6 @@
 + (instancetype)sharedManager;
 - (void)imageWithUrl:(NSString *)url completion:(void (^)(UIImage *image))completion;
 - (UIImage*)imageWithUrl:(NSString *)url;
+- (void)saveImageToPhotosWithUrl:(NSString*)url completion:(void (^)(BOOL success))completion;
 
 @end

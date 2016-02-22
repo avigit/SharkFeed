@@ -1,27 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="xb8-4Q-y5U">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="Td6-2z-Ldf">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController id="xb8-4Q-y5U" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="Znp-Bw-0ZJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="xu7-Q3-Rpx"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="4Kh-UF-zxN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="Vo9-E5-Vj2">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5Z-US-Bcq">
+                                <rect key="frame" x="209.5" y="229" width="181" height="142"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SharkFeed" translatesAutoresizingMaskIntoConstraints="NO" id="c6B-CM-2mm">
+                                        <rect key="frame" x="0.5" y="115" width="179" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="VzV-kb-EtP"/>
+                                            <constraint firstAttribute="width" constant="179" id="xj0-TK-UzS"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SharkFeed Logo" translatesAutoresizingMaskIntoConstraints="NO" id="IXK-h4-Y5g">
+                                        <rect key="frame" x="0.0" y="0.0" width="181" height="85"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="85" id="bAP-Bg-Fe6"/>
+                                            <constraint firstAttribute="width" constant="181" id="ibz-Gf-KT9"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="c6B-CM-2mm" firstAttribute="centerX" secondItem="n5Z-US-Bcq" secondAttribute="centerX" constant="-0.5" id="H1i-bw-Jzu"/>
+                                    <constraint firstAttribute="width" constant="181" id="NhC-Xh-KZf"/>
+                                    <constraint firstItem="c6B-CM-2mm" firstAttribute="top" secondItem="IXK-h4-Y5g" secondAttribute="bottom" constant="30" id="Sqp-PI-HZC"/>
+                                    <constraint firstAttribute="bottom" secondItem="c6B-CM-2mm" secondAttribute="bottom" id="Ujc-Uw-I8U"/>
+                                    <constraint firstItem="IXK-h4-Y5g" firstAttribute="top" secondItem="n5Z-US-Bcq" secondAttribute="top" id="V3v-0O-dSs"/>
+                                    <constraint firstItem="IXK-h4-Y5g" firstAttribute="centerX" secondItem="n5Z-US-Bcq" secondAttribute="centerX" id="vMb-BP-uFo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vo9-E5-Vj2" secondAttribute="trailing" constant="-20" id="HXC-L1-koR"/>
+                            <constraint firstItem="xu7-Q3-Rpx" firstAttribute="top" secondItem="Vo9-E5-Vj2" secondAttribute="bottom" id="Jvu-yZ-tB3"/>
+                            <constraint firstItem="Vo9-E5-Vj2" firstAttribute="top" secondItem="4Kh-UF-zxN" secondAttribute="topMargin" id="Ksp-ei-FN6"/>
+                            <constraint firstItem="n5Z-US-Bcq" firstAttribute="centerX" secondItem="4Kh-UF-zxN" secondAttribute="centerX" id="iTx-nU-1KV"/>
+                            <constraint firstItem="Vo9-E5-Vj2" firstAttribute="leading" secondItem="4Kh-UF-zxN" secondAttribute="leadingMargin" constant="-20" id="oZT-sk-e9V"/>
+                            <constraint firstItem="n5Z-US-Bcq" firstAttribute="centerY" secondItem="4Kh-UF-zxN" secondAttribute="centerY" id="z3w-WJ-8t3"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="cwY-zE-1Ln" appends="YES" id="bWq-Bz-x7h"/>
+                        </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="UKN-sA-YBs"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="luh-3P-hoy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="cwY-zE-1Ln"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="16" y="230"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Background" width="731" height="1298"/>
+        <image name="SharkFeed" width="179" height="27"/>
+        <image name="SharkFeed Logo" width="181" height="85"/>
+    </resources>
 </document>

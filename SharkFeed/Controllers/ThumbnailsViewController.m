@@ -21,7 +21,6 @@
 @property (nonatomic, strong) NSMutableArray            *searchResult;
 @property (nonatomic, strong) NSMutableDictionary       *inProgress;
 @property (nonatomic, strong) Result                    *result;
-@property (nonatomic, strong) UIRefreshControl          *refreshControl;
 @property (nonatomic, strong) RefreshControlView        *refreshControlView;
 @property (nonatomic, strong) NSLayoutConstraint        *refreshControlViewHeight;
 @property (nonatomic, strong) NSLayoutConstraint        *refreshControlViewTop;
@@ -35,6 +34,17 @@
     
     // Register collection view cell
     [_collectionView registerNib:[UINib nibWithNibName:@"FeedThumbnailCell" bundle:nil] forCellWithReuseIdentifier:@"FeedThumbnailCellId"];
+    
+    // Change navigation color
+    CGSize size = self.navigationController.navigationBar.bounds.size;
+    size.height += [UIApplication sharedApplication].statusBarFrame.size.height;
+    UIImage *barImage = [UIImage resizeImage:[UIImage imageNamed:@"Background"] size:size];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithPatternImage:barImage];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    UIImage *logo = [UIImage imageNamed:@"SharkFeed_logosmall"];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logo];
+    
     
     // add custom view to refresh control
     self.refreshControlView = [[[NSBundle mainBundle] loadNibNamed:@"RefreshControlView" owner:self options:nil] objectAtIndex:0];
@@ -77,7 +87,6 @@
                                                                   constant:0.0];
     
     [self.collectionView addConstraints:@[self.refreshControlViewTop, left, width, self.refreshControlViewHeight]];
-    [self.collectionView setNeedsLayout];
     [self.collectionView layoutIfNeeded];
     
     self.searchResult = [[NSMutableArray alloc] init];
@@ -87,7 +96,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,13 +114,8 @@
 
 - (void)startRefresh:(id)sender
 {
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [NSThread sleepForTimeInterval:5.0f];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            //Run UI Updates
-            [self.refreshControlView endRefreshing];
-        });
-    });
+    self.result = nil;
+    [self loadImages];
 }
 
 - (void)loadImages
@@ -114,9 +125,18 @@
     NSString *endpoint = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=949e98778755d1982f537d56236bbb42&tags=shark&format=json&nojsoncallback=1&page=%ld&extras=url_t,url_c,url_l,url_o", (long)page];
     
     [ConnectionManager dataWithEndpoint:endpoint completion:^(NSDictionary *response, NSError *error) {
+        if (!self.result) {
+            self.searchResult = [NSMutableArray new];
+        }
         self.result = [[Result alloc] initWithJSONDictionary:response[@"photos"]];
         [self.searchResult addObjectsFromArray:self.result.photo];
         [self.collectionView reloadData];
+        
+        // if pulled to refresh end refreshing
+        if (self.refreshControlView.isRefreshing) {
+            [self.refreshControlView endRefreshing];
+        }
+        
     }];
 }
 
@@ -138,10 +158,7 @@
     if (photo.thumbnailImage) {
         cell.thumbnail.image = photo.thumbnailImage;
     } else {
-        if (self.collectionView.dragging == NO && self.collectionView.decelerating == NO) {
-            [self startDownloadImage:photo forIndexPath:indexPath];
-        }
-        
+        [self startDownloadImage:photo forIndexPath:indexPath];        
         cell.thumbnail.image = nil;
     }
     
@@ -216,9 +233,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    DLog(@"Offset {%f,%f}", scrollView.contentOffset.x, scrollView.contentOffset.y);
-    DLog(@"Inset {%f}", self.topLayoutGuide.length);
-    DLog(@"Refresh Controller {%f|%f}", self.refreshControl.frame.size.height, self.refreshControlView.frame.size.height);
     if (scrollView.contentOffset.y / scrollView.contentSize.height > 0.70) {
         // load next page
         [self loadImages];
