@@ -11,6 +11,9 @@
 #import "ConnectionManager.h"
 #import "SFPhotoInfo.h"
 
+#define screenWidth     [UIScreen mainScreen].bounds.size.width;
+#define screenHeight    [UIScreen mainScreen].bounds.size.height;
+
 @interface LightboxViewController ()<UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *originalImageView;
@@ -32,8 +35,8 @@
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 4.0;
     
-    self.originalImageViewWidth.constant = [UIScreen mainScreen].bounds.size.width;
-    self.originalImageViewHeight.constant = [UIScreen mainScreen].bounds.size.height;
+    self.originalImageViewWidth.constant = screenWidth;
+    self.originalImageViewHeight.constant = screenHeight;
     [self.view layoutIfNeeded];
     
     [self setInfoLabelText];
@@ -62,6 +65,28 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        self.originalImageViewWidth.constant = screenHeight;
+        self.originalImageViewHeight.constant = screenWidth;
+    } else {
+        self.originalImageViewWidth.constant = screenHeight;
+        self.originalImageViewHeight.constant = screenWidth;
+    }
+    
+    [UIView animateWithDuration:duration animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        self.scrollView.contentSize = self.originalImageView.bounds.size;
+    }];
 }
 
 - (void)setInfoLabelText

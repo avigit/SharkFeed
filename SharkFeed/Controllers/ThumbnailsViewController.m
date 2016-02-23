@@ -74,6 +74,15 @@
     
 }
 
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)updateViewsForNetworkStatus:(NetworkStatus)status
 {
     // Do updates when network status changes

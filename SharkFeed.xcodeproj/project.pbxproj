@@ -27,6 +27,7 @@
 		27A32FF81C7C336500CC3FB9 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBF1C7A979F00C8C8FF /* NSObject+JSON.m */; };
 		27A32FFC1C7C392F00CC3FB9 /* Person.json in Resources */ = {isa = PBXBuildFile; fileRef = 27A32FFB1C7C392F00CC3FB9 /* Person.json */; };
 		27A32FFE1C7C3A6500CC3FB9 /* PersonArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 27A32FFD1C7C3A6500CC3FB9 /* PersonArray.json */; };
+		27D395631C7CCA68007B959F /* SFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D395621C7CCA68007B959F /* SFNavigationController.m */; };
 		27D6ABBC1C79582F00C8C8FF /* LightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */; };
 		27D6ABC01C7A979F00C8C8FF /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBF1C7A979F00C8C8FF /* NSObject+JSON.m */; };
 		27D6ABC31C7A97FC00C8C8FF /* UIImage+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABC21C7A97FC00C8C8FF /* UIImage+Extended.m */; };
@@ -91,6 +92,8 @@
 		27A32FF41C7C32F700CC3FB9 /* JSONMapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONMapTests.m; sourceTree = "<group>"; };
 		27A32FFB1C7C392F00CC3FB9 /* Person.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Person.json; sourceTree = "<group>"; };
 		27A32FFD1C7C3A6500CC3FB9 /* PersonArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PersonArray.json; sourceTree = "<group>"; };
+		27D395611C7CCA68007B959F /* SFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavigationController.h; sourceTree = "<group>"; };
+		27D395621C7CCA68007B959F /* SFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavigationController.m; sourceTree = "<group>"; };
 		27D6ABBA1C79582F00C8C8FF /* LightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightboxViewController.h; sourceTree = "<group>"; };
 		27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightboxViewController.m; sourceTree = "<group>"; };
 		27D6ABBE1C7A979F00C8C8FF /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 				27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */,
 				27D6ABC71C7AD98700C8C8FF /* SFViewController.h */,
 				27D6ABC81C7AD98700C8C8FF /* SFViewController.m */,
+				27D395611C7CCA68007B959F /* SFNavigationController.h */,
+				27D395621C7CCA68007B959F /* SFNavigationController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				270AC4C21C745A7000589908 /* Result.m in Sources */,
 				270AC4BB1C745A0A00589908 /* ThumbnailsViewController.m in Sources */,
 				27D6ABC01C7A979F00C8C8FF /* NSObject+JSON.m in Sources */,
+				27D395631C7CCA68007B959F /* SFNavigationController.m in Sources */,
 				270AC4DC1C758F3800589908 /* ConnectionManager.m in Sources */,
 				27D6ABF01C7C058B00C8C8FF /* LightboxSegue.m in Sources */,
 				27E93ABB1C76BA4900677EE5 /* FeedThumbnailCell.m in Sources */,

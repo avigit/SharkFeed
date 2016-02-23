@@ -9,7 +9,7 @@
         <!--Navigation Controller-->
         <scene sceneID="YXy-zQ-6Ub">
             <objects>
-                <navigationController navigationBarHidden="YES" id="Xd7-TI-WNe" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="Xd7-TI-WNe" customClass="SFNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NA3-0q-cwA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -286,7 +286,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to Start Feeding" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0je-8k-eQm">
-                                <rect key="frame" x="217" y="564" width="165" height="19.5"/>
+                                <rect key="frame" x="217" y="564" width="165" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
