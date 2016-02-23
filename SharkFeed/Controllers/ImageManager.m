@@ -47,7 +47,7 @@
     return [self sharedManager];
 }
 
-#pragma mark - Instance Methods
+#pragma mark - Download images
 
 - (UIImage*)imageWithUrl:(NSString *)url
 {
@@ -121,6 +121,8 @@
         
     }];
 }
+
+#pragma mark - Save image in photos
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {

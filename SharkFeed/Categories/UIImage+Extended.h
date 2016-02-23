@@ -10,6 +10,14 @@
 
 @interface UIImage (Extended)
 
+/**
+ *  It resizes the image passed in the image parameter
+ *
+ *  @param image an UIImage
+ *  @param size  size to be 
+ *
+ *  @return an image
+ */
 + (UIImage*)resizeImage:(UIImage*)image size:(CGSize)size;
 
 @end

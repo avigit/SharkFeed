@@ -60,14 +60,11 @@
                             <constraint firstItem="Vo9-E5-Vj2" firstAttribute="leading" secondItem="4Kh-UF-zxN" secondAttribute="leadingMargin" constant="-20" id="oZT-sk-e9V"/>
                             <constraint firstItem="n5Z-US-Bcq" firstAttribute="centerY" secondItem="4Kh-UF-zxN" secondAttribute="centerY" id="z3w-WJ-8t3"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="cwY-zE-1Ln" appends="YES" id="bWq-Bz-x7h"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="UKN-sA-YBs"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="luh-3P-hoy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="cwY-zE-1Ln"/>
             </objects>
             <point key="canvasLocation" x="16" y="230"/>
         </scene>

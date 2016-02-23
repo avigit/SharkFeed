@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *originalImageView;
 @property (strong, nonatomic) IBOutlet UILabel *infoLabel;
+@property (strong, nonatomic) IBOutlet UIButton *closeButton;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *originalImageViewWidth;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *originalImageViewHeight;
@@ -26,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Set zoom scales
+    // Set zoom scales to support pinch to zoom in
     
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 4.0;
@@ -48,6 +49,8 @@
             }
         }];
     }
+    
+    [self.closeButton setTitle:@"\u2715" forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -115,7 +118,7 @@
 
 - (IBAction)close:(id)sender
 {
-    [self performSegueWithIdentifier:@"unwindToThumbnailSegue" sender:self];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Scroll view delegates

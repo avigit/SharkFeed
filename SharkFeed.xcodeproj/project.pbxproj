@@ -28,7 +28,6 @@
 		27D6ABC91C7AD98700C8C8FF /* SFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABC81C7AD98700C8C8FF /* SFViewController.m */; };
 		27D6ABCC1C7AE2AC00C8C8FF /* SFPhotoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABCB1C7AE2AC00C8C8FF /* SFPhotoInfo.m */; };
 		27D6ABF01C7C058B00C8C8FF /* LightboxSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABED1C7C058B00C8C8FF /* LightboxSegue.m */; };
-		27D6ABF11C7C058B00C8C8FF /* LightboxSegueUnwind.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABEF1C7C058B00C8C8FF /* LightboxSegueUnwind.m */; };
 		27E93ABB1C76BA4900677EE5 /* FeedThumbnailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E93AB91C76BA4900677EE5 /* FeedThumbnailCell.m */; };
 		27E93ABC1C76BA4900677EE5 /* FeedThumbnailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27E93ABA1C76BA4900677EE5 /* FeedThumbnailCell.xib */; };
 /* End PBXBuildFile section */
@@ -93,8 +92,6 @@
 		27D6ABCB1C7AE2AC00C8C8FF /* SFPhotoInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoInfo.m; sourceTree = "<group>"; };
 		27D6ABEC1C7C058B00C8C8FF /* LightboxSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightboxSegue.h; sourceTree = "<group>"; };
 		27D6ABED1C7C058B00C8C8FF /* LightboxSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightboxSegue.m; sourceTree = "<group>"; };
-		27D6ABEE1C7C058B00C8C8FF /* LightboxSegueUnwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightboxSegueUnwind.h; sourceTree = "<group>"; };
-		27D6ABEF1C7C058B00C8C8FF /* LightboxSegueUnwind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightboxSegueUnwind.m; sourceTree = "<group>"; };
 		27E93AB81C76BA4900677EE5 /* FeedThumbnailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedThumbnailCell.h; sourceTree = "<group>"; };
 		27E93AB91C76BA4900677EE5 /* FeedThumbnailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedThumbnailCell.m; sourceTree = "<group>"; };
 		27E93ABA1C76BA4900677EE5 /* FeedThumbnailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedThumbnailCell.xib; sourceTree = "<group>"; };
@@ -218,8 +215,6 @@
 				270AC4C11C745A7000589908 /* Result.m */,
 				27D6ABEC1C7C058B00C8C8FF /* LightboxSegue.h */,
 				27D6ABED1C7C058B00C8C8FF /* LightboxSegue.m */,
-				27D6ABEE1C7C058B00C8C8FF /* LightboxSegueUnwind.h */,
-				27D6ABEF1C7C058B00C8C8FF /* LightboxSegueUnwind.m */,
 				27D6ABCA1C7AE2AC00C8C8FF /* SFPhotoInfo.h */,
 				27D6ABCB1C7AE2AC00C8C8FF /* SFPhotoInfo.m */,
 			);
@@ -391,7 +386,6 @@
 				2785FD951C76CB5E0049C749 /* ImageManager.m in Sources */,
 				270AC4C21C745A7000589908 /* Result.m in Sources */,
 				270AC4BB1C745A0A00589908 /* ThumbnailsViewController.m in Sources */,
-				27D6ABF11C7C058B00C8C8FF /* LightboxSegueUnwind.m in Sources */,
 				27D6ABC01C7A979F00C8C8FF /* NSObject+JSON.m in Sources */,
 				270AC4DC1C758F3800589908 /* ConnectionManager.m in Sources */,
 				27D6ABF01C7C058B00C8C8FF /* LightboxSegue.m in Sources */,

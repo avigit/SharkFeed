@@ -14,7 +14,6 @@
 #import "ImageManager.h"
 #import "RefreshControlView.h"
 #import "LightboxViewController.h"
-#import "LightboxSegueUnwind.h"
 
 @interface ThumbnailsViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -50,47 +49,7 @@
     
     
     // add custom view to refresh control
-    self.refreshControlView = [[[NSBundle mainBundle] loadNibNamed:@"RefreshControlView" owner:self options:nil] objectAtIndex:0];
-    
-    [self.collectionView addSubview:self.refreshControlView];
-    [self.refreshControlView addTarget:self action:@selector(startRefresh:) forControlEvents:UIControlEventValueChanged];
-    
-    self.refreshControlView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    self.refreshControlViewTop = [NSLayoutConstraint constraintWithItem:self.refreshControlView
-                                                              attribute:NSLayoutAttributeTop
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.collectionView
-                                                              attribute:NSLayoutAttributeTopMargin
-                                                             multiplier:1.0
-                                                               constant:0.0];
-    
-    NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.refreshControlView
-                                                            attribute:NSLayoutAttributeLeft
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:self.collectionView
-                                                            attribute:NSLayoutAttributeLeft
-                                                           multiplier:1.0
-                                                             constant:0.0];
-    
-    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.refreshControlView
-                                                             attribute:NSLayoutAttributeCenterX
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.collectionView
-                                                             attribute:NSLayoutAttributeCenterX
-                                                            multiplier:1.0
-                                                              constant:0.0];
-    self.refreshControlViewHeight = [NSLayoutConstraint constraintWithItem:self.refreshControlView
-                                                                 attribute:NSLayoutAttributeHeight
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:nil
-                                                                 attribute:NSLayoutAttributeNotAnAttribute
-                                                                multiplier:1.0
-                                                                  constant:0.0];
-    
-    [self.collectionView addConstraints:@[self.refreshControlViewTop, left, width, self.refreshControlViewHeight]];
-    [self.collectionView layoutIfNeeded];
+    [self addRefreshControl];
     
     self.searchResult = [[NSMutableArray alloc] init];
     [self loadImages];
@@ -115,15 +74,73 @@
     
 }
 
+- (void)updateViewsForNetworkStatus:(NetworkStatus)status
+{
+    // Do updates when network status changes
+}
+
+#pragma mark - Private methods
+
+- (void)addRefreshControl
+{
+    self.refreshControlView = [[[NSBundle mainBundle] loadNibNamed:@"RefreshControlView" owner:self options:nil] objectAtIndex:0];
+    
+    [self.collectionView addSubview:self.refreshControlView];
+    [self.refreshControlView addTarget:self action:@selector(startRefresh:) forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControlView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    // Top constraint
+    self.refreshControlViewTop = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.collectionView
+                                                              attribute:NSLayoutAttributeTopMargin
+                                                             multiplier:1.0
+                                                               constant:0.0];
+    
+    // Left constraint
+    NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                            attribute:NSLayoutAttributeLeft
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self.collectionView
+                                                            attribute:NSLayoutAttributeLeft
+                                                           multiplier:1.0
+                                                             constant:0.0];
+    
+    // Center
+    NSLayoutConstraint *center = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.collectionView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                            multiplier:1.0
+                                                              constant:0.0];
+    
+    // Height constraint
+    self.refreshControlViewHeight = [NSLayoutConstraint constraintWithItem:self.refreshControlView
+                                                                 attribute:NSLayoutAttributeHeight
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:1.0
+                                                                  constant:0.0];
+    
+    [self.collectionView addConstraints:@[self.refreshControlViewTop, left, center, self.refreshControlViewHeight]];
+    [self.collectionView layoutIfNeeded];
+}
+
 - (void)startRefresh:(id)sender
 {
+    // start getting results from the beginning
     self.result = nil;
     [self loadImages];
 }
 
 - (void)loadImages
 {
-    // We load next page after scrolle view scroll to a threshold value or more. After we start loading page, a user may still scroll and the y value of content offset will still be equal or more than the threshold. Therefore we load one page at a time to prevent multiple unnccessary page load.
+    // We load next page after scroll view scroll to a threshold value or more. After we start loading page, a user may still scroll and the y value of content offset will still be equal or more than the threshold. Therefore we load one page at a time to prevent multiple unneccessary page load.
     if (self.pageLoading) {
         return;
     }
@@ -161,46 +178,6 @@
     }];
 }
 
-#pragma mark <UICollectionViewDataSource>
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return (self.searchResult) ? self.searchResult.count : 0;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    FeedThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedThumbnailCellId" forIndexPath:indexPath];
-    Photo *photo = self.searchResult[indexPath.row];
-    if (photo.thumbnailImage) {
-        cell.thumbnail.image = photo.thumbnailImage;
-    } else {
-        [self startDownloadImage:photo forIndexPath:indexPath];        
-        cell.thumbnail.image = nil;
-    }
-    
-    return cell;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self performSegueWithIdentifier:@"LightBoxSegueId" sender:indexPath];
-    return YES;
-}
-
-#pragma mark <UICollectionViewDelegate>
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    screenSize.width = (screenSize.width - 20 - 4) / 3;
-    return CGSizeMake(floor(screenSize.width), floor(screenSize.width));
-}
-
 - (void)loadOnScreenCellImages
 {
     if (self.searchResult.count > 0)
@@ -232,6 +209,55 @@
     }
 }
 
+- (BOOL)isVisibleIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
+    
+    return [visiblePaths containsObject:indexPath];
+}
+
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return (self.searchResult) ? self.searchResult.count : 0;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    FeedThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedThumbnailCellId" forIndexPath:indexPath];
+    Photo *photo = self.searchResult[indexPath.row];
+    if (photo.thumbnailImage) {
+        cell.thumbnail.image = photo.thumbnailImage;
+    } else {
+        [self startDownloadImage:photo forIndexPath:indexPath];        
+        cell.thumbnail.image = nil;
+    }
+    
+    return cell;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"LightBoxSegueId" sender:indexPath];
+    return YES;
+}
+
+#pragma mark - UICollectionView flow
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    screenSize.width = (screenSize.width - 20 - 4) / 3;
+    return CGSizeMake(floor(screenSize.width), floor(screenSize.width));
+}
+
+#pragma mark - Scroll view delegates
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     if (!decelerate)
@@ -243,13 +269,6 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self loadOnScreenCellImages];
-}
-
-- (BOOL)isVisibleIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
-    
-    return [visiblePaths containsObject:indexPath];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -280,6 +299,8 @@
     }
 }
 
+#pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"LightBoxSegueId"]) {
@@ -287,21 +308,6 @@
         NSIndexPath *indexPath = (NSIndexPath*)sender;
         viewController.photo = self.searchResult[indexPath.row];
     }
-}
-
-- (IBAction)unwindFromLightbox:(UIStoryboardSegue*)sender
-{
-    
-}
-
-- (UIStoryboardSegue*)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier
-{
-    if ([identifier isEqualToString:@"unwindToThumbnailSegue"]) {
-        UIStoryboardSegue *unwindSegue = [[LightboxSegueUnwind alloc] initWithIdentifier:identifier source:fromViewController destination:toViewController];
-        return unwindSegue;
-    }
-    
-    return nil;
 }
 
 @end

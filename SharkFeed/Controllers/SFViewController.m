@@ -7,7 +7,6 @@
 //
 
 #import "SFViewController.h"
-#import "Reachability.h"
 
 @interface SFViewController ()
 
@@ -27,6 +26,14 @@
 }
 
 - (void)networkStatusChanged:(NSNotification*)notification
+{
+    Reachability *reachability = notification.object;
+    if ([reachability isKindOfClass:[Reachability class]]) {
+        [self updateViewsForNetworkStatus:reachability.currentReachabilityStatus];
+    }
+}
+
+- (void)updateViewsForNetworkStatus:(NetworkStatus)status
 {
     // subclasses must implement this to handle network changes
 }

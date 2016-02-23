@@ -10,6 +10,12 @@
 
 @interface ConnectionManager : NSObject
 
+/**
+ *  Get response from the specified url
+ *
+ *  @param endpoint   an url in string format
+ *  @param completion called with response dictionary and error
+ */
 + (void)dataWithEndpoint:(NSString*)endpoint completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 @end
