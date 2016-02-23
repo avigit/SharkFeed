@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
     // Start network reachability
     self.reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
     [self.reachability startNotifier];

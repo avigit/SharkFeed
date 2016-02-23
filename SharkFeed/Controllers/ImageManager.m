@@ -73,9 +73,9 @@
         if (image != nil) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 if (completion) {
-                    [self.inprogess removeObjectForKey:url];
                     completion(image);
                 }
+                [self.inprogess removeObjectForKey:url];
             }];
         } else {
             // Download Image
@@ -86,12 +86,12 @@
             
             if (image != nil) {
                 [self.imageCache setObject:data forKey:url];
+                [self.inprogess removeObjectForKey:url];
             }
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 if (completion) {
-                    [self.inprogess removeObjectForKey:url];
                     completion(image);
-                }
+                }                
             }];
         }
     }];
