@@ -14,6 +14,7 @@
 #import "ImageManager.h"
 #import "RefreshControlView.h"
 #import "LightboxViewController.h"
+#import "LightboxSegueUnwind.h"
 
 @interface ThumbnailsViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -104,7 +105,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     
 }
 
@@ -187,7 +188,7 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"LightBoxSegue" sender:indexPath];
+    [self performSegueWithIdentifier:@"LightBoxSegueId" sender:indexPath];
     return YES;
 }
 
@@ -281,11 +282,26 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"LightBoxSegue"]) {
+    if ([segue.identifier isEqualToString:@"LightBoxSegueId"]) {
         LightboxViewController *viewController = (LightboxViewController*)segue.destinationViewController;
         NSIndexPath *indexPath = (NSIndexPath*)sender;
         viewController.photo = self.searchResult[indexPath.row];
     }
+}
+
+- (IBAction)unwindFromLightbox:(UIStoryboardSegue*)sender
+{
+    
+}
+
+- (UIStoryboardSegue*)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier
+{
+    if ([identifier isEqualToString:@"unwindToThumbnailSegue"]) {
+        UIStoryboardSegue *unwindSegue = [[LightboxSegueUnwind alloc] initWithIdentifier:identifier source:fromViewController destination:toViewController];
+        return unwindSegue;
+    }
+    
+    return nil;
 }
 
 @end

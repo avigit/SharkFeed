@@ -115,7 +115,7 @@
 
 - (IBAction)close:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self performSegueWithIdentifier:@"unwindToThumbnailSegue" sender:self];
 }
 
 #pragma mark - Scroll view delegates

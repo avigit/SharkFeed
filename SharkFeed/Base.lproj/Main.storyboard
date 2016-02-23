@@ -78,7 +78,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="O0a-PT-dDn" id="b4p-5i-N8c"/>
                         <outlet property="collectionView" destination="tSY-db-NvF" id="4SS-fE-TZv"/>
-                        <segue destination="LwM-7i-GTJ" kind="presentation" identifier="LightBoxSegue" id="Fhm-dd-g4z"/>
+                        <segue destination="LwM-7i-GTJ" kind="custom" identifier="LightBoxSegueId" customClass="LightboxSegue" id="Fhm-dd-g4z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -224,9 +224,11 @@
                         <outlet property="originalImageViewHeight" destination="RWr-cI-hdR" id="AGL-B5-lzT"/>
                         <outlet property="originalImageViewWidth" destination="QvY-58-W8F" id="VIN-qr-KuX"/>
                         <outlet property="scrollView" destination="YY4-TE-zVx" id="xDv-6p-Noa"/>
+                        <segue destination="b3L-1Z-3e3" kind="unwind" identifier="unwindToThumbnailSegue" unwindAction="unwindFromLightbox:" id="D1S-si-MHh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wr1-S2-LXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="b3L-1Z-3e3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1397" y="230"/>
         </scene>

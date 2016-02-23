@@ -22,4 +22,10 @@
 #   define DLog(...)
 #endif
 
+#ifdef __IPHONE_8_0
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
+#else
+#define NS_DESIGNATED_INITIALIZER
+#endif
+
 #endif /* SharkFeed_Prefix_pch */
