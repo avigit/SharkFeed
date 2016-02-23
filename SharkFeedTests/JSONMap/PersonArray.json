@@ -1,0 +1,38 @@
+[
+  {
+    "name" : "Avigit",
+    "company" : [
+      {
+        "name" : "GB",
+        "address" : "Research Dr"
+      },
+      {
+        "name" : "iQmetrix",
+        "address" : "Cornowall St"
+      }
+    ],
+    "favColors" : [
+      "Blue",
+      "Black",
+      "Yellow"
+    ]
+  },
+  {
+    "name" : "No Name",
+    "company" : [
+      {
+        "name" : "GB",
+        "address" : "Research Dr"
+      },
+      {
+        "name" : "iQmetrix",
+        "address" : "Cornowall St"
+      }
+    ],
+    "favColors" : [
+      "Blue",
+      "Black",
+      "Yellow"
+    ]
+  }
+]

@@ -21,6 +21,12 @@
 		2785FD951C76CB5E0049C749 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2785FD941C76CB5E0049C749 /* ImageManager.m */; };
 		2785FD971C7709E70049C749 /* RefreshControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2785FD961C7709E70049C749 /* RefreshControlView.xib */; };
 		2785FDC41C7837750049C749 /* RefreshControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2785FDC31C7837750049C749 /* RefreshControlView.m */; };
+		27A32FF21C7C32C900CC3FB9 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A32FEF1C7C32C900CC3FB9 /* Company.m */; };
+		27A32FF31C7C32C900CC3FB9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A32FF11C7C32C900CC3FB9 /* Person.m */; };
+		27A32FF51C7C32F700CC3FB9 /* JSONMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A32FF41C7C32F700CC3FB9 /* JSONMapTests.m */; };
+		27A32FF81C7C336500CC3FB9 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBF1C7A979F00C8C8FF /* NSObject+JSON.m */; };
+		27A32FFC1C7C392F00CC3FB9 /* Person.json in Resources */ = {isa = PBXBuildFile; fileRef = 27A32FFB1C7C392F00CC3FB9 /* Person.json */; };
+		27A32FFE1C7C3A6500CC3FB9 /* PersonArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 27A32FFD1C7C3A6500CC3FB9 /* PersonArray.json */; };
 		27D6ABBC1C79582F00C8C8FF /* LightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */; };
 		27D6ABC01C7A979F00C8C8FF /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABBF1C7A979F00C8C8FF /* NSObject+JSON.m */; };
 		27D6ABC31C7A97FC00C8C8FF /* UIImage+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6ABC21C7A97FC00C8C8FF /* UIImage+Extended.m */; };
@@ -78,6 +84,13 @@
 		2785FD961C7709E70049C749 /* RefreshControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshControlView.xib; sourceTree = "<group>"; };
 		2785FDC21C7837750049C749 /* RefreshControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshControlView.h; sourceTree = "<group>"; };
 		2785FDC31C7837750049C749 /* RefreshControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshControlView.m; sourceTree = "<group>"; };
+		27A32FEE1C7C32C900CC3FB9 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
+		27A32FEF1C7C32C900CC3FB9 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
+		27A32FF01C7C32C900CC3FB9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		27A32FF11C7C32C900CC3FB9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		27A32FF41C7C32F700CC3FB9 /* JSONMapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONMapTests.m; sourceTree = "<group>"; };
+		27A32FFB1C7C392F00CC3FB9 /* Person.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Person.json; sourceTree = "<group>"; };
+		27A32FFD1C7C3A6500CC3FB9 /* PersonArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PersonArray.json; sourceTree = "<group>"; };
 		27D6ABBA1C79582F00C8C8FF /* LightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightboxViewController.h; sourceTree = "<group>"; };
 		27D6ABBB1C79582F00C8C8FF /* LightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightboxViewController.m; sourceTree = "<group>"; };
 		27D6ABBE1C7A979F00C8C8FF /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
@@ -172,6 +185,7 @@
 		270AC49E1C74425D00589908 /* SharkFeedTests */ = {
 			isa = PBXGroup;
 			children = (
+				27A32FED1C7C32C900CC3FB9 /* JSONMap */,
 				270AC49F1C74425D00589908 /* SharkFeedTests.m */,
 				270AC4A11C74425D00589908 /* Info.plist */,
 			);
@@ -219,6 +233,20 @@
 				27D6ABCB1C7AE2AC00C8C8FF /* SFPhotoInfo.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		27A32FED1C7C32C900CC3FB9 /* JSONMap */ = {
+			isa = PBXGroup;
+			children = (
+				27A32FFD1C7C3A6500CC3FB9 /* PersonArray.json */,
+				27A32FFB1C7C392F00CC3FB9 /* Person.json */,
+				27A32FEE1C7C32C900CC3FB9 /* Company.h */,
+				27A32FEF1C7C32C900CC3FB9 /* Company.m */,
+				27A32FF01C7C32C900CC3FB9 /* Person.h */,
+				27A32FF11C7C32C900CC3FB9 /* Person.m */,
+				27A32FF41C7C32F700CC3FB9 /* JSONMapTests.m */,
+			);
+			path = JSONMap;
 			sourceTree = "<group>";
 		};
 		27D6ABBD1C7A979F00C8C8FF /* Categories */ = {
@@ -360,6 +388,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27A32FFE1C7C3A6500CC3FB9 /* PersonArray.json in Resources */,
+				27A32FFC1C7C392F00CC3FB9 /* Person.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +430,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27A32FF51C7C32F700CC3FB9 /* JSONMapTests.m in Sources */,
+				27A32FF31C7C32C900CC3FB9 /* Person.m in Sources */,
 				270AC4A01C74425D00589908 /* SharkFeedTests.m in Sources */,
+				27A32FF81C7C336500CC3FB9 /* NSObject+JSON.m in Sources */,
+				27A32FF21C7C32C900CC3FB9 /* Company.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

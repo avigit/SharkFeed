@@ -363,7 +363,7 @@
     if (strcmp(rawPropertyType, @encode(float)) == 0 ||
         strcmp(rawPropertyType, @encode(int)) == 0 ||
         strcmp(rawPropertyType, @encode(NSInteger)) == 0 ||
-        strcmp(rawPropertyType, @encode(CGFloat)) == 0) {
+        strcmp(rawPropertyType, @encode(double)) == 0) {
         //it's a primitive
         return YES;
     }

@@ -161,17 +161,21 @@
         if (!self.result) {
             self.searchResult = [NSMutableArray new];
         }
-        self.result = [[Result alloc] initWithJSONDictionary:response[@"photos"]];
-        [self.searchResult addObjectsFromArray:self.result.photo];
         
-        // update UI
-        [self.activityIndicator stopAnimating];
-        [self.collectionView reloadData];
+        if (error) {
+            // Handle error
+            
+        } else if (response) {
+            self.result = [[Result alloc] initWithJSONDictionary:response[@"photos"]];
+            [self.searchResult addObjectsFromArray:self.result.photo];
+            [self.collectionView reloadData];
+        }
         
         // if pulled to refresh end refreshing
         if (self.refreshControlView.isRefreshing) {
             [self.refreshControlView endRefreshing];
         }
+        [self.activityIndicator stopAnimating];
         self.pageLoading = NO;
         
         
