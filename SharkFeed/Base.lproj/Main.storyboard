@@ -174,12 +174,24 @@
                                             <action selector="openInApp:" destination="LwM-7i-GTJ" eventType="touchUpInside" id="Tbh-w3-mLR"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Miq-kD-qVt">
+                                        <rect key="frame" x="283" y="80" width="35" height="28"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="Share">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="share:" destination="LwM-7i-GTJ" eventType="touchUpInside" id="urt-he-iGK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="xWJ-IN-Pca" firstAttribute="bottom" secondItem="Miq-kD-qVt" secondAttribute="bottom" id="2KB-9Q-k84"/>
                                     <constraint firstItem="cOj-jp-tDK" firstAttribute="leading" secondItem="ZG0-G4-Wp2" secondAttribute="leading" constant="24" id="32p-p0-EbR"/>
                                     <constraint firstItem="xWJ-IN-Pca" firstAttribute="bottom" secondItem="cOj-jp-tDK" secondAttribute="bottom" id="3W4-l3-9AQ"/>
                                     <constraint firstAttribute="trailing" secondItem="xWJ-IN-Pca" secondAttribute="trailing" constant="24" id="80b-Hp-jNB"/>
+                                    <constraint firstItem="Miq-kD-qVt" firstAttribute="centerX" secondItem="ZG0-G4-Wp2" secondAttribute="centerX" id="EXB-lF-LhO"/>
                                     <constraint firstItem="Uob-aq-gHv" firstAttribute="leading" secondItem="ZG0-G4-Wp2" secondAttribute="leading" constant="20" id="NDg-iy-FRz"/>
                                     <constraint firstItem="Uob-aq-gHv" firstAttribute="leading" secondItem="5Ys-ov-MgP" secondAttribute="leading" id="PhG-qR-UOr"/>
                                     <constraint firstItem="Uob-aq-gHv" firstAttribute="centerY" secondItem="ZG0-G4-Wp2" secondAttribute="centerY" id="TZZ-Rl-qga"/>

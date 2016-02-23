@@ -146,6 +146,33 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)share:(id)sender
+{
+    NSArray *shareItems;
+    if (self.photo.originalImage) {
+        shareItems = @[self.photo.originalImage];
+    } else if (self.photo.largeImage) {
+        shareItems = @[self.photo.largeImage];
+    } else if (self.photo.mediumImage) {
+        shareItems = @[self.photo.mediumImage];
+    } else {
+        shareItems = @[self.photo.thumbnailImage];
+    }
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    activityVC.excludedActivityTypes = excludeActivities;
+    
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
 #pragma mark - Scroll view delegates
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
